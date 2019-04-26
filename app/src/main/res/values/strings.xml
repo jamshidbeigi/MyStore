@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyStore</string>
+    <string name="categories">دسته بندی محصولات</string>
+    <string name="newest">جدیدترین ها</string>
+    <string name="top_selling">پرفروش ترین ها</string>
+    <string name="best_rated">بهترین ها</string>
+    <string name="mystore">فروشگاه من</string>
 </resources>
