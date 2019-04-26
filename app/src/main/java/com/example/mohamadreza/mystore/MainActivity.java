@@ -2,6 +2,7 @@ package com.example.mohamadreza.mystore;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.widget.RecyclerView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
+    private RecyclerView mNewestRecyclerView;
+    private RecyclerView mTopSellingRecyclerView;
+    private RecyclerView mBestRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
