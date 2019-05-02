@@ -5,4 +5,5 @@
     <string name="top_selling">پرفروش ترین ها</string>
     <string name="best_rated">بهترین ها</string>
     <string name="mystore">فروشگاه من</string>
+    <string name="title_activity_categories">CategoriesActivity</string>
 </resources>

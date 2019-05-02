@@ -17,4 +17,27 @@ public class Category {
     @SerializedName("image")
     private Image mImage;
 
+    public Category(Long id, String name, Long parentId, Image image) {
+        mId = id;
+        mName = name;
+        mParentId = parentId;
+        mImage = image;
+    }
+
+    public Long getId() {
+        return mId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public Long getParentId() {
+        return mParentId;
+    }
+
+    public Image getImage() {
+        return mImage;
+    }
+
 }
