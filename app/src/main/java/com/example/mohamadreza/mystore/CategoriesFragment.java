@@ -1,5 +1,6 @@
 package com.example.mohamadreza.mystore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mohamadreza.mystore.models.Image;
 
 import com.example.mohamadreza.mystore.models.Category;
 import com.example.mohamadreza.mystore.network.Api;
@@ -99,6 +101,9 @@ public class CategoriesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
+                    Intent intent = ProductActivity.newIntent(getActivity(),mCategory.getId(),0);
+                    startActivity(intent);
+
                 }
             });
         }
@@ -106,9 +111,8 @@ public class CategoriesFragment extends Fragment {
         public void bind(Category category) {
             mCategory = category;
             mNameTextView.setText(category.getName());
-            if(category.getImage()!= null){
+//            if(category.getImage()!= null)
 //                Picasso.get().load(category.getImage().getPath()).into(mCategoryImageView);
-            }
         }
     }
 

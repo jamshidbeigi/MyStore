@@ -6,4 +6,9 @@
     <string name="best_rated">بهترین ها</string>
     <string name="mystore">فروشگاه من</string>
     <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="title_activity_product">ProductActivity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_single_fragment">SingleFragmentActivity</string>
+    <string name="title_activity_product_details">ProductDetailsActivity</string>
 </resources>

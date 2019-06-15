@@ -41,6 +41,7 @@ public class CategoriesActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("دسته بندی ها");
 
         RetrofitInstance.getInstance().create(Api.class).getCategories((long) 0).enqueue(new Callback<List<Category>>() {
             @Override

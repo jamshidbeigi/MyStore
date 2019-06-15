@@ -6,7 +6,6 @@ public class Image {
 
     @SerializedName("id")
     private Long mId;
-
     @SerializedName("src")
     private String mPath;
 
