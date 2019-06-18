@@ -1,7 +1,10 @@
 package com.example.mohamadreza.mystore.models;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+//any product
 
 public class Product {
     @SerializedName("id")
@@ -29,9 +32,14 @@ public class Product {
     private String mAverageRating;
 
     @SerializedName("categories")
-    private List<Categories> mCategories;
+    private List<ProductCategory> mCategories;
 
-    public Product(Long id, String name, String price, List<Image> images, String description, String createdDate, int totalSales, String averageRating, List<Categories> categories) {
+    @SerializedName("attributes")
+    private List<Attribute> mAttributes;
+
+    public Product(Long id, String name, String price, List<Image> images,
+                   String description, String createdDate, int totalSales,
+                   String averageRating, List<ProductCategory> categories, List<Attribute> attributes) {
         mId = id;
         mName = name;
         mPrice = price;
@@ -41,9 +49,11 @@ public class Product {
         mTotalSales = totalSales;
         mAverageRating = averageRating;
         mCategories = categories;
+        mAttributes = attributes;
+
     }
 
-    public List<Categories> getCategories() {
+    public List<ProductCategory> getCategories() {
         return mCategories;
     }
 
@@ -79,4 +89,7 @@ public class Product {
         return mAverageRating;
     }
 
+    public List<Attribute> getAttributes() {
+        return mAttributes;
+    }
 }

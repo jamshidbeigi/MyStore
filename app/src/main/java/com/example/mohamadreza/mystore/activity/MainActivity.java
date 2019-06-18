@@ -1,19 +1,28 @@
-package com.example.mohamadreza.mystore;
+package com.example.mohamadreza.mystore.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mohamadreza.mystore.R;
 import com.example.mohamadreza.mystore.models.Product;
 import com.example.mohamadreza.mystore.network.Api;
 import com.example.mohamadreza.mystore.network.RetrofitInstance;
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -23,15 +32,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import android.support.v4.view.GravityCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
         mTopSellingTextView = findViewById(R.id.top_selling_products_title);
         mBestTextView = findViewById(R.id.best_products_title);
 
-        mNewests.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        mTopSellings.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        mBests.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        mNewests.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mTopSellings.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mBests.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("فروشگاه من");
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_naviga);
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mNewestTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProductActivity.newIntent(MainActivity.this,null,1);
+                Intent intent = ProductActivity.newIntent(MainActivity.this, null, 1);
                 startActivity(intent);
             }
         });
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         mTopSellingTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProductActivity.newIntent(MainActivity.this,null,2);
+                Intent intent = ProductActivity.newIntent(MainActivity.this, null, 2);
                 startActivity(intent);
             }
         });
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         mBestTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = ProductActivity.newIntent(MainActivity.this,null,3);
+                Intent intent = ProductActivity.newIntent(MainActivity.this, null, 3);
                 startActivity(intent);
             }
         });
@@ -101,15 +102,15 @@ public class MainActivity extends AppCompatActivity {
         RetrofitInstance.getInstance().create(Api.class).getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Product> newestProducts = response.body();
 
-                    Collections.sort(newestProducts, new Comparator<Product>(){
-                        public int compare(Product a, Product b){
+                    Collections.sort(newestProducts, new Comparator<Product>() {
+                        public int compare(Product a, Product b) {
                             return a.getCreatedDate().compareTo(b.getCreatedDate());
                         }
                     });
-                    mProductAdapter  = new ProductAdapter(newestProducts);
+                    mProductAdapter = new ProductAdapter(newestProducts);
                     mNewests.setAdapter(mProductAdapter);
 
                     mNewests.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
+
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
 
@@ -151,16 +153,16 @@ public class MainActivity extends AppCompatActivity {
         RetrofitInstance.getInstance().create(Api.class).getProducts("popularity").enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Product> topSellingProducts = response.body();
 
-                    mProductAdapter  = new ProductAdapter(topSellingProducts);
+                    mProductAdapter = new ProductAdapter(topSellingProducts);
                     mTopSellings.setAdapter(mProductAdapter);
 
                 }
             }
 
-	            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<List<Product>> call, Throwable t) {
 
 
             }
@@ -170,14 +172,15 @@ public class MainActivity extends AppCompatActivity {
         RetrofitInstance.getInstance().create(Api.class).getProducts("rating").enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Product> bestProducts = response.body();
 
-                    mProductAdapter  = new ProductAdapter(bestProducts);
+                    mProductAdapter = new ProductAdapter(bestProducts);
                     mBests.setAdapter(mProductAdapter);
 
                 }
             }
+
             public void onFailure(Call<List<Product>> call, Throwable t) {
 
 
@@ -186,30 +189,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-                    mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
 
-                    case R.id.nav_categories :
-
+                    case R.id.nav_categories:
 
                         Intent intent = CategoriesActivity.newIntent(MainActivity.this);
                         startActivity(intent);
                         return true;
 
-                    case R.id.nav_newest_products :
-                        Intent intent1 = ProductActivity.newIntent(MainActivity.this,null,1);
+                    case R.id.nav_newest_products:
+                        Intent intent1 = ProductActivity.newIntent(MainActivity.this, null, 1);
                         startActivity(intent1);
                         return true;
 
-                    case R.id.nav_top_selling_products :
-                        Intent intent2 = ProductActivity.newIntent(MainActivity.this,null,2);
+                    case R.id.nav_top_selling_products:
+                        Intent intent2 = ProductActivity.newIntent(MainActivity.this, null, 2);
                         startActivity(intent2);
                         return true;
 
-                    case R.id.nav_best_products :
-                        Intent intent3 = ProductActivity.newIntent(MainActivity.this,null,3);
+                    case R.id.nav_best_products:
+                        Intent intent3 = ProductActivity.newIntent(MainActivity.this, null, 3);
                         startActivity(intent3);
                         return true;
                 }
@@ -233,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private class ProductHolder extends RecyclerView.ViewHolder {
 
         private TextView mNameTextView;
@@ -252,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = ProductDetailsActivity.newIntent(MainActivity.this,mProduct.getId());
+                    Intent intent = ProductDetailsActivity.newIntent(MainActivity.this, mProduct.getId());
                     startActivity(intent);
                 }
             });
@@ -262,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             mProduct = product;
             mNameTextView.setText(mProduct.getName());
             mPrice.setText(mProduct.getPrice());
-            if(mProduct.getImages()!= null && mProduct.getImages().size()>0){
+            if (mProduct.getImages() != null && mProduct.getImages().size() > 0) {
                 Picasso.get().load(mProduct.getImages().get(0).getPath()).into(mProductImageView);
             }
         }

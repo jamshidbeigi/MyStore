@@ -1,17 +1,19 @@
-package com.example.mohamadreza.mystore;
-
+package com.example.mohamadreza.mystore.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.mohamadreza.mystore.R;
 import com.example.mohamadreza.mystore.models.Product;
 import com.example.mohamadreza.mystore.network.Api;
 import com.example.mohamadreza.mystore.network.RetrofitInstance;
@@ -28,30 +30,30 @@ import retrofit2.Response;
  */
 public class ProductDetailsFragment extends Fragment {
 
+
+    private static final String DIALOG_PRODUCT_ATTRIBUTES = "product_attributes";
+    private static final String ARG_PRODUCT_ID = "product_id";
     private ViewPager mViewPager;
     private TextView mProductName;
     private TextView mProductPrice;
     private TextView mProductDescription;
     private Toolbar mToolbar;
-
+    private Button mAttributeButton;
     private List<Product> mProducts;
     private Product mProduct;
     private Long mProductId;
 
-    private static final String ARG_PRODUCT_ID = "product_id";
-
-
-    public static ProductDetailsFragment newInstance(Long productId) {
-        Bundle args = new Bundle();
-        args.putLong(ARG_PRODUCT_ID,productId);
-        ProductDetailsFragment fragment = new ProductDetailsFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
 
     public ProductDetailsFragment() {
         // Required empty public constructor
+    }
+
+    public static ProductDetailsFragment newInstance(Long productId) {
+        Bundle args = new Bundle();
+        args.putLong(ARG_PRODUCT_ID, productId);
+        ProductDetailsFragment fragment = new ProductDetailsFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -70,6 +72,8 @@ public class ProductDetailsFragment extends Fragment {
         mProductPrice = view.findViewById(R.id.product_price);
         mProductDescription = view.findViewById(R.id.product_description);
         mToolbar = view.findViewById(R.id.toolbar);
+        mAttributeButton = view.findViewById(R.id.product_attribute);
+
 
         //        ((ProductDetailsActivity)getActivity()).setSupportActionBar(mToolbar);
 
@@ -77,7 +81,7 @@ public class ProductDetailsFragment extends Fragment {
         RetrofitInstance.getInstance().create(Api.class).getProduct(mProductId).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     mProduct = response.body();
                     mProductName.setText(mProduct.getName());
                     mProductPrice.setText("قیمت :    " + mProduct.getPrice());
@@ -96,14 +100,30 @@ public class ProductDetailsFragment extends Fragment {
                         }
                     });
 
+//                    mViewPager.setPageMargin(
+//                            getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
+
+                    mAttributeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ProductAttributesDialogFragment productAttributesDialogFragment =
+                                    ProductAttributesDialogFragment.newInstance(mProduct.getId());
+
+                            productAttributesDialogFragment.show(getFragmentManager(), DIALOG_PRODUCT_ATTRIBUTES);
+                        }
+                    });
+
+
                 }
             }
+
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
 
             }
         });
 
-        return view;    }
+        return view;
+    }
 
 }

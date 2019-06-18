@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// main root {contain all product obj
 public class AllProducts {
     @SerializedName("products")
     private List<Product> mProducts;

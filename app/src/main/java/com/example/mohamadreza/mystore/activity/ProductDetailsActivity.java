@@ -1,14 +1,11 @@
-package com.example.mohamadreza.mystore;
+package com.example.mohamadreza.mystore.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import androidx.fragment.app.Fragment;
+
+import com.example.mohamadreza.mystore.fragment.ProductDetailsFragment;
 
 public class ProductDetailsActivity extends SingleFragmentActivity {
 
@@ -23,7 +20,7 @@ public class ProductDetailsActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment createFragment() {
-        Long productId = getIntent().getLongExtra(EXTRA_PRODUCT_ID,0);
+        Long productId = getIntent().getLongExtra(EXTRA_PRODUCT_ID, 0);
         return ProductDetailsFragment.newInstance(productId);
     }
 

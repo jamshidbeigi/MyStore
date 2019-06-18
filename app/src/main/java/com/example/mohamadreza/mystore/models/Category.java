@@ -1,8 +1,9 @@
 package com.example.mohamadreza.mystore.models;
 
-import android.media.Image;
-
 import com.google.gson.annotations.SerializedName;
+
+
+//any category
 
 public class Category {
     @SerializedName("id")

@@ -2,6 +2,7 @@ package com.example.mohamadreza.mystore.models;
 
 import com.google.gson.annotations.SerializedName;
 
+//any image of pruduct or category
 public class Image {
 
     @SerializedName("id")

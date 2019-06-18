@@ -1,19 +1,25 @@
-package com.example.mohamadreza.mystore;
+package com.example.mohamadreza.mystore.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.mohamadreza.mystore.R;
+import com.example.mohamadreza.mystore.fragment.CategoriesFragment;
 import com.example.mohamadreza.mystore.models.Category;
 import com.example.mohamadreza.mystore.network.Api;
 import com.example.mohamadreza.mystore.network.RetrofitInstance;
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,7 +32,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private List<Category> mCategories;
 
-    public static Intent newIntent(Context context){
+    public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, CategoriesActivity.class);
         return intent;
     }
@@ -46,7 +52,7 @@ public class CategoriesActivity extends AppCompatActivity {
         RetrofitInstance.getInstance().create(Api.class).getCategories((long) 0).enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     mCategories = response.body();
                     setViewPager();
 
@@ -69,7 +75,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int i) {
 
-                switch (i){
+                switch (i) {
                     case 0:
                         return CategoriesFragment.newInstance(mCategories.get(0).getId());
                     case 1:
@@ -93,13 +99,13 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public CharSequence getPageTitle(int position) {
 
-                if (position==0)
+                if (position == 0)
                     return mCategories.get(0).getName();
-                if (position==1)
+                if (position == 1)
                     return mCategories.get(1).getName();
-                if (position==2)
+                if (position == 2)
                     return mCategories.get(2).getName();
-                if (position==3)
+                if (position == 3)
                     return mCategories.get(3).getName();
 
                 return super.getPageTitle(position);

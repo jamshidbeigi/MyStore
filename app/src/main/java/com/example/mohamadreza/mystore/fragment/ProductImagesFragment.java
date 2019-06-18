@@ -1,12 +1,15 @@
-package com.example.mohamadreza.mystore;
+package com.example.mohamadreza.mystore.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.mohamadreza.mystore.R;
 import com.squareup.picasso.Picasso;
 
 
@@ -21,17 +24,17 @@ public class ProductImagesFragment extends Fragment {
 
     private String mImagePath;
 
+    public ProductImagesFragment() {
+        // Required empty public constructor
+    }
+
     public static ProductImagesFragment newInstance(String imagePath) {
 
         Bundle args = new Bundle();
-        args.putString(ARG_IMAGE_PATH,imagePath);
+        args.putString(ARG_IMAGE_PATH, imagePath);
         ProductImagesFragment fragment = new ProductImagesFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public ProductImagesFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -48,7 +51,7 @@ public class ProductImagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_images, container, false);
         mImageView = view.findViewById(R.id.product_image);
 
-        if(mImagePath != null){
+        if (mImagePath != null) {
             Picasso.get().load(mImagePath).into(mImageView);
         }
 
