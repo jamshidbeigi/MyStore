@@ -35,16 +35,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="16dp"
-                >
+                android:layout_margin="16dp">
 
-                <TextView
-                    android:id="@+id/newest_products_title"
-                    android:text="@string/newest"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/newest_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="بیشتر"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:drawableEnd="@drawable/ic_arrow_left_black_24dp"/>
+
+                    <TextView
+                        android:id="@+id/newest_products_title"
+                        android:text="@string/newest"
+                        android:textSize="18sp"
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -58,16 +76,34 @@
 
                 </androidx.cardview.widget.CardView>
 
-
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/top_selling_products_title"
-                    android:text="@string/top_selling"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:id="@+id/top_selling_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="بیشتر"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:drawableEnd="@drawable/ic_arrow_left_black_24dp"/>
+
+
+                    <TextView
+                        android:id="@+id/top_selling_products_title"
+                        android:text="@string/top_selling"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -80,14 +116,31 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bests_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="بیشتر"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:drawableEnd="@drawable/ic_arrow_left_black_24dp"/>
+
                 <TextView
                     android:id="@+id/best_products_title"
+                    android:layout_centerInParent="true"
                     android:text="@string/best_rated"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                </RelativeLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -114,7 +167,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer"
-        app:headerLayout="@layout/navigation">
+        app:headerLayout="@layout/navigation_header">
 
     </com.google.android.material.navigation.NavigationView>
 

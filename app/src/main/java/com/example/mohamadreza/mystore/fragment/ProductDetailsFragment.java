@@ -37,6 +37,7 @@ public class ProductDetailsFragment extends Fragment {
     private TextView mProductName;
     private TextView mProductPrice;
     private TextView mProductDescription;
+    private TextView mMore;
     private Toolbar mToolbar;
     private Button mAttributeButton;
     private List<Product> mProducts;
@@ -73,9 +74,23 @@ public class ProductDetailsFragment extends Fragment {
         mProductDescription = view.findViewById(R.id.product_description);
         mToolbar = view.findViewById(R.id.toolbar);
         mAttributeButton = view.findViewById(R.id.product_attribute);
+        mMore = view.findViewById(R.id.more_txt);
+
+        mMore.setOnClickListener(v->{
+
+            if(mMore.getText().toString().equals("ادامه متن")){
+            mProductDescription.setMaxLines(Integer.MAX_VALUE);
+            mMore.setText("خلاصه متن");
+            }
+            else{
+                mProductDescription.setMaxLines(5);
+                mMore.setText("ادامه متن");
+            }
+        });
 
 
-        //        ((ProductDetailsActivity)getActivity()).setSupportActionBar(mToolbar);
+
+            //        ((ProductDetailsActivity)getActivity()).setSupportActionBar(mToolbar);
 
 
         RetrofitInstance.getInstance().create(Api.class).getProduct(mProductId).enqueue(new Callback<Product>() {
@@ -85,7 +100,13 @@ public class ProductDetailsFragment extends Fragment {
                     mProduct = response.body();
                     mProductName.setText(mProduct.getName());
                     mProductPrice.setText("قیمت :    " + mProduct.getPrice());
-                    mProductDescription.setText(mProduct.getDescription());
+
+                    String description = mProduct.getDescription();
+                    description = description.replace("</p>","");
+                    description = description.replace("<p>","");
+
+                    mProductDescription.setText(description);
+
 
                     mViewPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
                         @Override
@@ -112,8 +133,6 @@ public class ProductDetailsFragment extends Fragment {
                             productAttributesDialogFragment.show(getFragmentManager(), DIALOG_PRODUCT_ATTRIBUTES);
                         }
                     });
-
-
                 }
             }
 

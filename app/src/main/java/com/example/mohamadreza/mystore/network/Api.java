@@ -41,4 +41,5 @@ public interface Api {
             "&consumer_secret=" +
             "cs_2155b7b3787139f6b0cd6af37e3104241aec550e")
     Call<List<Category>> getCategories(@Query("parent") long parent);
+
 }

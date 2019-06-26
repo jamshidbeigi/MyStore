@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView mNewestTextView;
     private TextView mTopSellingTextView;
     private TextView mBestTextView;
+    private TextView mNewestTxtMore;
+    private TextView mTopSellingTxtMore;
+    private TextView mBestTxtMore;
     private ProductAdapter mProductAdapter;
 
     @Override
@@ -63,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         mTopSellingTextView = findViewById(R.id.top_selling_products_title);
         mBestTextView = findViewById(R.id.best_products_title);
 
+        mNewestTxtMore = findViewById(R.id.newest_more);
+        mTopSellingTxtMore = findViewById(R.id.top_selling_more);
+        mBestTxtMore = findViewById(R.id.bests_more);
+
         mNewests.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mTopSellings.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mBests.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -74,28 +81,22 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_naviga);
 
-        mNewestTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = ProductActivity.newIntent(MainActivity.this, null, 1);
-                startActivity(intent);
-            }
+        mNewestTxtMore.setOnClickListener(v->{
+
+            Intent intent = ProductActivity.newIntent(MainActivity.this, null, 1);
+            startActivity(intent);
         });
 
-        mTopSellingTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = ProductActivity.newIntent(MainActivity.this, null, 2);
-                startActivity(intent);
-            }
+        mTopSellingTxtMore.setOnClickListener(v->{
+
+            Intent intent = ProductActivity.newIntent(MainActivity.this, null, 2);
+            startActivity(intent);
         });
 
-        mBestTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBestTxtMore.setOnClickListener(v->{
+
                 Intent intent = ProductActivity.newIntent(MainActivity.this, null, 3);
                 startActivity(intent);
-            }
         });
 
 
@@ -105,11 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Product> newestProducts = response.body();
 
-                    Collections.sort(newestProducts, new Comparator<Product>() {
-                        public int compare(Product a, Product b) {
-                            return a.getCreatedDate().compareTo(b.getCreatedDate());
-                        }
-                    });
+                    Collections.sort(newestProducts, (a, b) -> a.getCreatedDate().compareTo(b.getCreatedDate()));
                     mProductAdapter = new ProductAdapter(newestProducts);
                     mNewests.setAdapter(mProductAdapter);
 
@@ -122,24 +119,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-
-
-//                    Collections.sort(newestProducts, new Comparator<Product>(){
-//                        public int compare(Product a, Product b){
-//                            return ((Integer)a.getTotalSales()).compareTo((Integer) b.getTotalSales());
-//                        }
-//                    });
-//                    mProductAdapter.setProducts(newestProducts);
-//                    mTopSellings.setAdapter(mProductAdapter);
-//
-//
-//                    Collections.sort(newestProducts, new Comparator<Product>(){
-//                        public int compare(Product a, Product b){
-//                            return a.getAverageRating().compareTo(b.getAverageRating());
-//                        }
-//                    });
-//                    mProductAdapter.setProducts(newestProducts);
-//                    mBests.setAdapter(mProductAdapter);
 
                 }
             }
@@ -189,36 +168,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
+        mNavigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
 
-                    case R.id.nav_categories:
+                case R.id.nav_categories:
 
-                        Intent intent = CategoriesActivity.newIntent(MainActivity.this);
-                        startActivity(intent);
-                        return true;
+                    Intent intent = CategoriesActivity.newIntent(MainActivity.this);
+                    startActivity(intent);
+                    return true;
 
-                    case R.id.nav_newest_products:
-                        Intent intent1 = ProductActivity.newIntent(MainActivity.this, null, 1);
-                        startActivity(intent1);
-                        return true;
+                case R.id.nav_newest_products:
+                    Intent intent1 = ProductActivity.newIntent(MainActivity.this, null, 1);
+                    startActivity(intent1);
+                    return true;
 
-                    case R.id.nav_top_selling_products:
-                        Intent intent2 = ProductActivity.newIntent(MainActivity.this, null, 2);
-                        startActivity(intent2);
-                        return true;
+                case R.id.nav_top_selling_products:
+                    Intent intent2 = ProductActivity.newIntent(MainActivity.this, null, 2);
+                    startActivity(intent2);
+                    return true;
 
-                    case R.id.nav_best_products:
-                        Intent intent3 = ProductActivity.newIntent(MainActivity.this, null, 3);
-                        startActivity(intent3);
-                        return true;
-                }
-                return false;
+                case R.id.nav_best_products:
+                    Intent intent3 = ProductActivity.newIntent(MainActivity.this, null, 3);
+                    startActivity(intent3);
+                    return true;
             }
+            return false;
         });
-
 
     }
 
@@ -249,13 +224,10 @@ public class MainActivity extends AppCompatActivity {
             mProductImageView = itemView.findViewById(R.id.product_image_view);
             mPrice = itemView.findViewById(R.id.product_price);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            itemView.setOnClickListener(v -> {
 
-                    Intent intent = ProductDetailsActivity.newIntent(MainActivity.this, mProduct.getId());
-                    startActivity(intent);
-                }
+                Intent intent = ProductDetailsActivity.newIntent(MainActivity.this, mProduct.getId());
+                startActivity(intent);
             });
         }
 

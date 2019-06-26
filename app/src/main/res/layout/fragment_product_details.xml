@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             android:layout_height="200dp"
             android:layout_margin="16dp"
             android:layout_marginLeft="@dimen/viewpager_margin_fix"
-            android:layout_marginRight="@dimen/viewpager_margin_fix"/>
+            android:layout_marginRight="@dimen/viewpager_margin_fix" />
 
         <TextView
             android:id="@+id/product_name"
@@ -57,7 +56,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:gravity="right" />
+            android:padding="16dp"
+            android:background="@drawable/roundedcorners_comment_gray"
+            android:gravity="right"
+            android:lineSpacingMultiplier="1.5"
+            android:maxLines="7"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/more_txt"
+            android:layout_width="75dp"
+            android:layout_height="25dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/roundedcorners_comment_gray"
+            android:gravity="center"
+            android:text="ادامه متن"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

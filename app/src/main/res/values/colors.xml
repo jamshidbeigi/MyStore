@@ -7,5 +7,6 @@
     <color name="colorGrayLight">#AFAFAF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="blue_purple">#3813B1</color>
+    <color name="black">#000000</color>
 
 </resources>
